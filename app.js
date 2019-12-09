@@ -196,11 +196,30 @@ let quickSort = (array, left, right) => {
     quickSort(array, pivot + 1, right);
 };
 
+let shellSort = (array) => {
+    let g = Math.floor(array.length / 2);
+    let temp;
+
+    while(g > 0){
+        for(let i = g; i < array.length; i++){
+            temp = array[i];
+            let j;
+            for(j = i; j >= g && array[j - g] > temp; j-=g){
+                array[j] = array[j - g];
+            }
+            array[j] = temp; 
+        }
+
+        g = Math.floor(g / 2);
+    }
+};
+
 let swapArrayItems = (array, i, j) => {
     let aux = array[i];
     array[i] = array[j];
     array[j] = aux;
 };
+
 
 var utils = new Utils();
 var app_state = ["start", "created", "animating", "end"];
@@ -208,7 +227,7 @@ var graphContainer = document.querySelector("#graphic_container");
 var itemsArray = utils.generateRandomNumberArray(10, 100, 20);
 // insertionSort(itemsArray);
 console.log(itemsArray);
-console.log(quickSort(itemsArray, 0 , itemsArray.length - 1));
+shellSort(itemsArray);
 console.log(itemsArray);
 
 // var graphGen = new GraphicsGenerator(graphContainer, itemsArray, true);
